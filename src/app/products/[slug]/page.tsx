@@ -8,15 +8,16 @@ import { CheckCircle2, Beaker, Shield } from "lucide-react";
 import type { Product } from "@/types";
 
 type Props = {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 };
 
 export default function ProductPage({ params }: Props) {
+	const { slug } = React.use(params);
 	const prod: Product =
-		getProductBySlug(params.slug) ?? {
-			id: params.slug,
-			slug: params.slug,
-			name: params.slug.replace(/-/g, " "),
+		getProductBySlug(slug) ?? {
+			id: slug,
+			slug: slug,
+			name: slug.replace(/-/g, " "),
 			price: 39,
 			images: [],
 			description:

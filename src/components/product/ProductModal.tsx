@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { X } from "lucide-react";
 import type { Product } from "@/types";
 
@@ -40,22 +41,32 @@ export default function ProductModal({ product, isOpen, onClose, onAddToCart }: 
           {/* Content */}
           <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
             {/* Product Image */}
-            <div className="w-full rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 flex items-center justify-center mb-6 sm:mb-8 h-48 sm:h-64">
-              <svg viewBox="0 0 400 300" className="w-full h-full">
-                <defs>
-                  <linearGradient id="pg" x1="0" x2="1" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#e5e7eb" />
-                    <stop offset="100%" stopColor="#f3f4f6" />
-                  </linearGradient>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#pg)" />
-                <g transform="translate(200,150)">
-                  <circle r="120" fill="#ffffff" stroke="#22c55e" strokeWidth="3" />
-                  <text x="0" y="12" textAnchor="middle" fontSize="84" fontWeight="700" fill="#22c55e">
-                    {product.name.charAt(0).toUpperCase()}
-                  </text>
-                </g>
-              </svg>
+            <div className="w-full rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 flex items-center justify-center mb-6 sm:mb-8 h-48 sm:h-64 relative">
+              {product.images && product.images[0] ? (
+                <Image
+                  src={product.images[0]}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 512px"
+                />
+              ) : (
+                <svg viewBox="0 0 400 300" className="w-full h-full">
+                  <defs>
+                    <linearGradient id="pg" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stopColor="#e5e7eb" />
+                      <stop offset="100%" stopColor="#f3f4f6" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#pg)" />
+                  <g transform="translate(200,150)">
+                    <circle r="120" fill="#ffffff" stroke="#22c55e" strokeWidth="3" />
+                    <text x="0" y="12" textAnchor="middle" fontSize="84" fontWeight="700" fill="#22c55e">
+                      {product.name.charAt(0).toUpperCase()}
+                    </text>
+                  </g>
+                </svg>
+              )}
             </div>
 
             {/* Price */}

@@ -42,6 +42,7 @@ export default function ProductsClient() {
                 <ProductCard
                   name={p.name}
                   price={`$${p.price}`}
+                  image={p.images[0]}
                   monogram={p.name.charAt(0)}
                   color={colors[i % colors.length]}
                 />

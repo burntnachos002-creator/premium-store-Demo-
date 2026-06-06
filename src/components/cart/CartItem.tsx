@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCartStore, type CartItemWithSelection } from "@/store/cartStore";
+import products from "@/data/products";
 
 type CartItemProps = {
   item: CartItemWithSelection;
@@ -14,6 +16,8 @@ export default function CartItem({ item }: CartItemProps) {
   const toggleItem = useCartStore((s) => s.toggleItem);
 
   const itemTotal = item.price * item.quantity;
+  const fallback = products.find((p) => p.id === item.id);
+  const imageSrc = item.images && item.images[0] ? item.images[0] : fallback?.images?.[0];
 
   return (
     <div className="flex gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border border-gray-200 hover:border-green-300 transition-colors">
@@ -37,27 +41,37 @@ export default function CartItem({ item }: CartItemProps) {
       </button>
 
       {/* Thumbnail */}
-      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 flex items-center justify-center">
-        <svg viewBox="0 0 100 100" className="w-10 h-10 sm:w-12 sm:h-12">
-          <defs>
-            <linearGradient id="g" x1="0" x2="1">
-              <stop offset="0%" stopColor="#22c55e" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#22c55e" stopOpacity="0.05" />
-            </linearGradient>
-          </defs>
-          <rect width="100" height="100" fill="url(#g)" />
-          <circle cx="50" cy="50" r="20" fill="#ffffff" stroke="#22c55e" strokeWidth="1.5" />
-          <text
-            x="50"
-            y="55"
-            textAnchor="middle"
-            fontSize="18"
-            fontWeight="700"
-            fill="#22c55e"
-          >
-            {item.name.charAt(0)}
-          </text>
-        </svg>
+      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 flex items-center justify-center relative overflow-hidden">
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt={item.name}
+            fill
+            className="object-cover"
+            sizes="80px"
+          />
+        ) : (
+          <svg viewBox="0 0 100 100" className="w-10 h-10 sm:w-12 sm:h-12">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0%" stopColor="#22c55e" stopOpacity="0.1" />
+                <stop offset="100%" stopColor="#22c55e" stopOpacity="0.05" />
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#g)" />
+            <circle cx="50" cy="50" r="20" fill="#ffffff" stroke="#22c55e" strokeWidth="1.5" />
+            <text
+              x="50"
+              y="55"
+              textAnchor="middle"
+              fontSize="18"
+              fontWeight="700"
+              fill="#22c55e"
+            >
+              {item.name.charAt(0)}
+            </text>
+          </svg>
+        )}
       </div>
 
       {/* Content */}

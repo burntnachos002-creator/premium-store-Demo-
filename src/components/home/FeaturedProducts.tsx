@@ -1,12 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import ProductCard from "@/components/product/ProductCard";
-
-const products = [
-  { name: "Aurum Daily", price: "$39", monogram: "A", color: "#22c55e" },
-  { name: "Night Restore", price: "$49", monogram: "N", color: "#22c55e" },
-  { name: "Focus Amplify", price: "$34", monogram: "F", color: "#22c55e" },
-];
+import products from "@/data/products";
 
 export default function FeaturedProducts() {
   return (
@@ -23,13 +18,14 @@ export default function FeaturedProducts() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {products.map((p) => (
-            <Link key={p.name} href={`/products/${p.name.toLowerCase().replace(/\s+/g, "-")}`} className="block group">
+          {products.slice(0, 3).map((p) => (
+            <Link key={p.id} href={`/products/${p.slug}`} className="block group">
               <ProductCard
                 name={p.name}
-                price={p.price}
-                monogram={p.monogram}
-                color={p.color}
+                price={`$${p.price}`}
+                image={p.images?.[0]}
+                monogram={p.name.charAt(0)}
+                color="#22c55e"
               />
             </Link>
           ))}

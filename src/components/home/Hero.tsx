@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -32,22 +33,14 @@ export default function Hero() {
 
           {/* Right: Product Visual */}
           <div className="flex items-center justify-center mt-8 lg:mt-0">
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md aspect-square rounded-3xl bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 flex items-center justify-center">
-              <svg viewBox="0 0 300 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="heroGrad" x1="0" x2="1" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#dcfce7" />
-                    <stop offset="100%" stopColor="#f0fdf4" />
-                  </linearGradient>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#heroGrad)" />
-                <g transform="translate(150,150)">
-                  <circle cx="0" cy="0" r="80" fill="#ffffff" stroke="#22c55e" strokeWidth="3" />
-                  <text x="0" y="15" textAnchor="middle" fontSize="48" fontWeight="700" fill="#22c55e">
-                    A
-                  </text>
-                </g>
-              </svg>
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md aspect-square rounded-3xl bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 flex items-center justify-center relative overflow-hidden">
+              <Image
+                src="/images/products/aurum-hero.png"
+                alt="Aurum visual"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 512px"
+              />
             </div>
           </div>
         </div>

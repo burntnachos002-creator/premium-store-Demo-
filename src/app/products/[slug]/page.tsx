@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { getProductBySlug } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
 import { CheckCircle2, Beaker, Shield } from "lucide-react";
@@ -56,23 +57,35 @@ export default function ProductPage({ params }: Props) {
 				<div className="mt-6 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 items-start">
 					{/* Left: Product Image */}
 					<div className="w-full flex flex-col gap-6">
-						<div className="w-full rounded-3xl overflow-hidden bg-gradient-to-br from-gray-100 via-gray-50 to-white border border-gray-200 flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[500px]">
-							<svg viewBox="0 0 800 600" className="w-full h-full object-cover">
-								<defs>
-									<linearGradient id="pg" x1="0" x2="1" y1="0" y2="1">
-										<stop offset="0%" stopColor="#e5e7eb" />
-										<stop offset="100%" stopColor="#f3f4f6" />
-									</linearGradient>
-								</defs>
-								<rect width="100%" height="100%" fill="url(#pg)" />
-								<g transform="translate(400,300)">
-									<circle r="120" fill="#ffffff" stroke="#22c55e" strokeWidth="3" />
-									<text x="0" y="12" textAnchor="middle" fontSize="84" fontWeight="700" fill="#22c55e">
-										{prod.name.charAt(0).toUpperCase()}
-									</text>
-								</g>
-							</svg>
-						</div>
+								<div className="w-full rounded-3xl overflow-hidden bg-gradient-to-br from-gray-100 via-gray-50 to-white border border-gray-200 flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[500px]">
+									{prod.images && prod.images[0] ? (
+										<div className="relative w-full h-full min-h-[300px] sm:min-h-[400px] lg:min-h-[500px]">
+											<Image
+												src={prod.images[0]}
+												alt={prod.name}
+												fill
+												className="object-contain"
+												sizes="(max-width: 640px) 100vw, 50vw"
+											/>
+										</div>
+									) : (
+										<svg viewBox="0 0 800 600" className="w-full h-full object-cover">
+											<defs>
+												<linearGradient id="pg" x1="0" x2="1" y1="0" y2="1">
+													<stop offset="0%" stopColor="#e5e7eb" />
+													<stop offset="100%" stopColor="#f3f4f6" />
+												</linearGradient>
+											</defs>
+											<rect width="100%" height="100%" fill="url(#pg)" />
+											<g transform="translate(400,300)">
+												<circle r="120" fill="#ffffff" stroke="#22c55e" strokeWidth="3" />
+												<text x="0" y="12" textAnchor="middle" fontSize="84" fontWeight="700" fill="#22c55e">
+													{prod.name.charAt(0).toUpperCase()}
+												</text>
+											</g>
+										</svg>
+									)}
+								</div>
 					</div>
 
 					{/* Right: Product Details */}
